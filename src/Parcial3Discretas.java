@@ -1,19 +1,17 @@
 public class Parcial3Discretas {
 
-    public static void main(String[] args){
 
-        Grafo grafoPrueba = new Grafo("no");
-        Vertice verticePrueba = new Vertice("1");
-        Vertice paraConectar = new Vertice("2");
-        grafoPrueba.anhadirVertice(verticePrueba);
-        grafoPrueba.anhadirVertice(paraConectar);
-        grafoPrueba.conectarVertice(verticePrueba,paraConectar);
+    public static void main(String[] args) {
+        //Se están tratando cada arista como dirigida, para expresar un grafo no dirigido se necesita construir pares de aristas en direcciones opuestas
+        Grafo grafoPrueba = new Grafo("1");
+        Arista aristaPrueba = new Arista("1","2",5);
+        grafoPrueba.conectarVertice(aristaPrueba);
+        grafoPrueba.conectarVertice(new Arista("2","1",5));
+        grafoPrueba.conectarVertice(new Arista("1","3",4));
+        grafoPrueba.conectarVertice(new Arista("4","3",4));
+        grafoPrueba.conectarVertice(new Arista("3","4",4));
+        grafoPrueba.conectarVertice(new Arista("3","1",6));
+        System.out.println(grafoPrueba.noDirigido());
 
-        System.out.println(grafoPrueba);
-        System.out.println(verticePrueba);
-        System.out.println(paraConectar);
     }
-
-
-
 }
