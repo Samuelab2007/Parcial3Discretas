@@ -31,14 +31,18 @@ public class Parcial3Discretas {
 
     public static void main(String[] args) {
         //Se están tratando cada arista como dirigida, para expresar un grafo no dirigido se necesita construir pares de aristas en direcciones opuestas
-        Grafo grafoPrueba = new Grafo(1);
-        Arista aristaPrueba = new Arista(1,2,5);
+        Grafo grafoPrueba = new Grafo("1");
+        Arista aristaPrueba = new Arista("1","2",5);
         grafoPrueba.conectarVertice(aristaPrueba);
-        grafoPrueba.conectarVertice(new Arista(2,1,5));
-        grafoPrueba.conectarVertice(new Arista(1,3,6));
-        grafoPrueba.conectarVertice(new Arista(4,3,3));
-        grafoPrueba.conectarVertice(new Arista(3,4,3));
-        grafoPrueba.conectarVertice(new Arista(3,1,6));
+        grafoPrueba.conectarVertice(new Arista("2","1",5));
+        grafoPrueba.conectarVertice(new Arista("1","3",6));
+        grafoPrueba.conectarVertice(new Arista("4","3",3));
+        grafoPrueba.conectarVertice(new Arista("3","4",3));
+        grafoPrueba.conectarVertice(new Arista("3","1",6));
+
+        grafoPrueba.conectarVertice(new Arista("2","3",10));
+        grafoPrueba.conectarVertice(new Arista("3","2",10));
+
 
         System.out.println(grafoPrueba.noDirigido());
         grafoPrueba.actualizarMatrizAdyacencia();
@@ -52,8 +56,14 @@ public class Parcial3Discretas {
             System.out.println(e.getMessage());
         }
 
-        //TODO: Hay que mostrar de que tipo es el grafo, ya está adelantado para grafo dirigido.
-        //TODO: Manejo de excepciones
+        System.out.println(grafoPrueba.esRegular());
+        System.out.println(grafoPrueba.esCompleto());
+        System.out.println(grafoPrueba.esEuleriano());
+
+        /*
+        TODO: Manejo de excepciones
+        TODO: Crear métodos alternativos para los tipos de grafo, pero utilizando las matrices
+         */
 
     }
 }

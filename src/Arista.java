@@ -1,21 +1,21 @@
 
 public class Arista {
 
-    private int nodoPartida;
-    private int nodoLlegada;
+    private String nodoPartida;
+    private String nodoLlegada;
     private int longitud;
 
-    Arista(int nodoPartida,int nodoLlegada,int longitud){
+    Arista(String nodoPartida,String nodoLlegada,int longitud){
         this.nodoPartida = nodoPartida;
         this.nodoLlegada = nodoLlegada;
         this.longitud = longitud;
     }
 
-    public int getNodoPartida() {
+    public String getNodoPartida() {
         return nodoPartida;
     }
 
-    public int getNodoLlegada() {
+    public String getNodoLlegada() {
         return nodoLlegada;
     }
 
