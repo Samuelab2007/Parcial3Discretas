@@ -1,3 +1,7 @@
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class Parcial3Discretas {
 
 
@@ -29,41 +33,80 @@ public class Parcial3Discretas {
         }
     }
 
+
+    static Scanner lectura = new Scanner(System.in);
     public static void main(String[] args) {
         //Se están tratando cada arista como dirigida, para expresar un grafo no dirigido se necesita construir pares de aristas en direcciones opuestas
-        Grafo grafoPrueba = new Grafo("1");
-        Arista aristaPrueba = new Arista("1","2",5);
-        grafoPrueba.conectarVertice(aristaPrueba);
-        grafoPrueba.conectarVertice(new Arista("2","1",5));
-        grafoPrueba.conectarVertice(new Arista("1","3",6));
-        grafoPrueba.conectarVertice(new Arista("4","3",3));
-        grafoPrueba.conectarVertice(new Arista("3","4",3));
-        grafoPrueba.conectarVertice(new Arista("3","1",6));
-
-        grafoPrueba.conectarVertice(new Arista("2","3",10));
-        grafoPrueba.conectarVertice(new Arista("3","2",10));
 
 
-        System.out.println(grafoPrueba.noDirigido());
-        grafoPrueba.actualizarMatrizAdyacencia();
-        escribirMatriz(grafoPrueba.getMatrizAdyacencia(),1,grafoPrueba);
-        System.out.println();
-        try {       //Prueba matriz adyacencia
-            grafoPrueba.actualizarMatrizIncidencia();
-            escribirMatriz(grafoPrueba.getMatrizIncidencia(),2,grafoPrueba);
+        System.out.println("Empezaremos creando un grafo");
+        System.out.print("Primer vertice del grafo: ");
+        String nodoInicial = lectura.next();
+        Grafo grafo = new Grafo(nodoInicial);
 
-        }catch(MatrizIncalculableException e){
-            System.out.println(e.getMessage());
+        for(;;) {
+            System.out.println("Elija la accion a realizar");
+            System.out.println("1. Anhadir una arista al grafo");
+            System.out.println("2. Matriz de adyacencia");
+            System.out.println("3. Matriz de incidencia");
+            System.out.println("4. Tipo de grafo");
+            System.out.println("0. Salir del programa");
+            int opcionMenu = lectura.nextInt();
+            switch (opcionMenu) {
+                case 1:
+                    System.out.print("Nodo de partida: ");
+                    String nodoPartida = lectura.next();
+                    System.out.print("Nodo de llegada: ");
+                    String nodoLlegada = lectura.next();
+                    int longitud = 0;
+                    try {
+                        System.out.print("Longitud: ");
+                        longitud = lectura.nextInt();
+                        if(longitud<=0){
+                            throw new InputMismatchException();
+                        }
+                    }catch (InputMismatchException e){
+                        System.out.println("Ingrese un numero entero positivo");
+                        System.exit(0);
+                    }
+                    grafo.conectarVertice(new Arista(nodoPartida, nodoLlegada, longitud));
+                    break;
+                case 2:
+                    grafo.actualizarMatrizAdyacencia();
+                    escribirMatriz(grafo.getMatrizAdyacencia(), 1, grafo);
+                    break;
+                case 3:
+                    try {
+                        grafo.actualizarMatrizIncidencia();
+                        escribirMatriz(grafo.getMatrizIncidencia(), 2, grafo);
+                        break;
+                    } catch (MatrizIncalculableException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                case 4:
+                    System.out.println("\nEl grafo es: ");
+                    if (grafo.noDirigido()) {
+                        System.out.println("No dirigido");
+                    } else {
+                        System.out.println("Dirigido");
+                    }
+                    if (grafo.esRegular()) {
+                        System.out.println("Regular");
+                    }
+                    if (grafo.esCompleto()) {
+                        System.out.println("Completo");
+                    }
+                    if (grafo.esEuleriano()) {
+                        System.out.println("Euleriano");
+                    }
+                    System.out.println();
+                    break;
+                case 0:
+                    System.exit(0);
+                    break;
+            }
         }
-
-        System.out.println(grafoPrueba.esRegular());
-        System.out.println(grafoPrueba.esCompleto());
-        System.out.println(grafoPrueba.esEuleriano());
-
-        /*
-        TODO: Manejo de excepciones
-        TODO: Crear métodos alternativos para los tipos de grafo, pero utilizando las matrices
-         */
 
     }
 }
