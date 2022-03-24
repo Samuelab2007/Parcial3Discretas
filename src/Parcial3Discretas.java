@@ -1,5 +1,3 @@
-
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Parcial3Discretas {
@@ -58,17 +56,9 @@ public class Parcial3Discretas {
                     String nodoPartida = lectura.next();
                     System.out.print("Nodo de llegada: ");
                     String nodoLlegada = lectura.next();
-                    int longitud = 0;
-                    try {
-                        System.out.print("Longitud: ");
-                        longitud = lectura.nextInt();
-                        if(longitud<=0){
-                            throw new InputMismatchException();
-                        }
-                    }catch (InputMismatchException e){
-                        System.out.println("Ingrese un numero entero positivo");
-                        System.exit(0);
-                    }
+                    System.out.print("Longitud: ");
+                    String longitud = lectura.next();
+
                     grafo.conectarVertice(new Arista(nodoPartida, nodoLlegada, longitud));
                     break;
                 case 2:
@@ -76,14 +66,9 @@ public class Parcial3Discretas {
                     escribirMatriz(grafo.getMatrizAdyacencia(), 1, grafo);
                     break;
                 case 3:
-                    try {
                         grafo.actualizarMatrizIncidencia();
                         escribirMatriz(grafo.getMatrizIncidencia(), 2, grafo);
                         break;
-                    } catch (MatrizIncalculableException e) {
-                        System.out.println(e.getMessage());
-                        break;
-                    }
                 case 4:
                     System.out.println("\nEl grafo es: ");
                     if (grafo.noDirigido()) {

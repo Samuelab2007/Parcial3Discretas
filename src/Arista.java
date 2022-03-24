@@ -3,9 +3,9 @@ public class Arista {
 
     private String nodoPartida;
     private String nodoLlegada;
-    private int longitud;
+    private String longitud;
 
-    Arista(String nodoPartida,String nodoLlegada,int longitud){
+    Arista(String nodoPartida,String nodoLlegada,String longitud){
         this.nodoPartida = nodoPartida;
         this.nodoLlegada = nodoLlegada;
         this.longitud = longitud;
@@ -19,7 +19,7 @@ public class Arista {
         return nodoLlegada;
     }
 
-    public int getLongitud() {
+    public String getLongitud() {
         return longitud;
     }
 }

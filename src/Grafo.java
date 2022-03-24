@@ -4,7 +4,7 @@ public class Grafo {
 
     private ArrayList<String> vertices = new ArrayList<>();
     private ArrayList<Arista> aristas = new ArrayList<>();
-    private ArrayList<Integer> idenficacionesAristas = new ArrayList<>();
+    private ArrayList<String> idenficacionesAristas = new ArrayList<>();
     private int[][] matrizAdyacencia;
     private int[][] matrizIncidencia;
 
@@ -17,7 +17,7 @@ public class Grafo {
         return vertices;
     }
 
-    public ArrayList<Integer> getIdenficacionesAristas() {
+    public ArrayList<String> getIdenficacionesAristas() {
         return idenficacionesAristas;
     }
 
@@ -81,7 +81,7 @@ public class Grafo {
         }
     }
 
-    public void actualizarMatrizIncidencia() throws MatrizIncalculableException{       //Solo se calcula para grafo NO dirigido
+    public void actualizarMatrizIncidencia() {       //Solo se calcula para grafo NO dirigido
         if(noDirigido()){
             matrizIncidencia = new int[vertices.size()][aristas.size()/2];
             for (String vertice : vertices) {
@@ -92,7 +92,19 @@ public class Grafo {
                 }
             }
         }else{
-            throw new MatrizIncalculableException();
+            matrizIncidencia = new int[vertices.size()][aristas.size()];
+            for (String vertice : vertices) {
+                for (Arista arista : aristas) {
+                    if (vertice.equals(arista.getNodoPartida())) {
+                        matrizIncidencia[vertices.indexOf(vertice)][idenficacionesAristas.indexOf(arista.getLongitud())] = 1;
+                    }if (vertice.equals(arista.getNodoLlegada())) {
+                        matrizIncidencia[vertices.indexOf(vertice)][idenficacionesAristas.indexOf(arista.getLongitud())] = -1;
+                    }if (vertice.equals(arista.getNodoLlegada()) && vertice.equals(arista.getNodoPartida())) {
+                        matrizIncidencia[vertices.indexOf(vertice)][idenficacionesAristas.indexOf(arista.getLongitud())] = 2;
+                    }
+                }       //TODO: Corregir error de representación de grafo con el mismo nombre para grafo dirigido.
+                        // El error parece estar en el método indexOf();
+            }
         }
     }
 
@@ -141,6 +153,6 @@ public class Grafo {
             }
             i++;
         }
-        return true;
+        return true;    //TODO: Aplicar esEuleriano para grafos dirigidos, gradoEntrante = gradoSaliente, para todos los vertices
     }
 }
